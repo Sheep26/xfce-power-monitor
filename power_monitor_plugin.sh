@@ -4,8 +4,8 @@ ICON=utilities-system-monitor
 
 # Get the target powersupply
 POWERSUPPLIES=$(ls '/sys/class/power_supply/' | tr " " "\n")
-VOLTAGE=""
-CURRENT=""
+VOLTAGE=0
+CURRENT=0
 
 # Cycle though each powersupply to figure out which powersupply to use
 for POWERSUPPLY in $POWERSUPPLIES; do
