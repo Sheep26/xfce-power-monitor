@@ -37,7 +37,7 @@ WATTAGE=$(echo $(((VOLTAGE * CURRENT) / 10000000000)) | sed -e 's/..$/.&/;t' -e 
 
 # do the genmon
 echo "<txt>$WATTAGE‎W</txt>"
-echo "<tool>Voltage | $(echo $((VOLTAGE / 10000)) | sed -e 's/..$/.&/;t' -e 's/.$/.0&/')
-Current | $(echo $((CURRENT / 10000)) | sed -e 's/..$/.&/;t' -e 's/.$/.0&/')</tool>"
+echo "<tool>Voltage | $(echo $((VOLTAGE / 10000)) | sed -e 's/..$/.&/;t' -e 's/.$/.0&/')V
+Current | $(echo $((CURRENT / 10000)) | sed -e 's/..$/.&/;t' -e 's/.$/.0&/')A</tool>"
 
 exit 0
