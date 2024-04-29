@@ -12,9 +12,8 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     # Find out which powersupply to use
     if [[ "$POWERSUPPLY" == AC* ]]; then
         # Check if plugged into mains
-        for "$DATA" in [[ $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent") ]]
-        do
-            if $DATA == "POWER_SUPPLY_ONLINE=1"; then
+        for DATA in $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent"); do
+            if [[ "$DATA" == POWER_SUPPLY_ONLINE=1 ]]; then
                 $VOLTAGE = 10000000000000
                 $CURRENT = 10000000000
                 break
@@ -32,6 +31,6 @@ done
 WATTAGE=$(((VOLTAGE * CURRENT) / 1000000000000))
 
 # do the genmon
-echo "<txt>$WATTAGE‎W</txt><txtclick>xfce4-power-manager</txtclick>"
+echo "<txt>$WATTAGE‎W</txt>"
 
 exit 0
