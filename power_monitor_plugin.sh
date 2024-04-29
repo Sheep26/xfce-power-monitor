@@ -13,16 +13,14 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     # Find out which powersupply to use
     if [[ "$POWERSUPPLY" == AC* ]]; then
         # Check if plugged into mains
-        for DATA in $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent"); do
-            if [[ "$DATA" == POWER_SUPPLY_ONLINE=1 ]]; then
-                if [ -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] && [ -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then     
-                    VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
-                    CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
-                    USINGAC=true
-                fi
-                break
+        if [[ $(cat "/sys/class/power_supply/$POWERSUPPLY/online") == "1" ]]; then
+            if [ -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] && [ -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then     
+                VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
+                CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
+                USINGAC=true
             fi
-        done
+            break
+        fi
         if "$USINGAC"; then
             break
         fi
