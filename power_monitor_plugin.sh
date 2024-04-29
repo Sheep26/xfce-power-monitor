@@ -11,20 +11,22 @@ CURRENT=""
 # Cycle though each powersupply to figure out which powersupply to use
 for POWERSUPPLY in $POWERSUPPLIES; do
     # Find out which powersupply to use
-    #if [[ "$POWERSUPPLY" == AC* ]]; then
+    if [[ "$POWERSUPPLY" == AC* ]]; then
         # Check if plugged into mains
-        #for DATA in $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent"); do
-            #if [[ "$DATA" == POWER_SUPPLY_ONLINE=1 ]]; then
-                #VOLTAGE=10000000000000
-                #CURRENT=10000000000
-                #USINGAC=true
-                #break
-            #fi
-        #done
-        #if "$USINGAC"; then
-            #break
-        #fi
-    #fi
+        for DATA in $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent"); do
+            if [[ "$DATA" == POWER_SUPPLY_ONLINE=1 ]]; then
+                if test -e "/sys/class/power_supply/$POWERSUPPLY/voltage_now" and test -e "/sys/class/power_supply/$POWERSUPPLY/current_now"; then     
+                    VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
+                    CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
+                    USINGAC=true
+                fi
+                break
+            fi
+        done
+        if "$USINGAC"; then
+            break
+        fi
+    fi
     if [[ "$POWERSUPPLY" == BAT* ]]; then
         VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
         CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
