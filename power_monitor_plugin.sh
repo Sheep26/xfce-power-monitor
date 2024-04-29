@@ -6,7 +6,6 @@ ICON=utilities-system-monitor
 POWERSUPPLIES=$(ls '/sys/class/power_supply/' | tr " " "\n")
 VOLTAGE=""
 CURRENT=""
-USINGAC=false
 
 # Cycle though each powersupply to figure out which powersupply to use
 for POWERSUPPLY in $POWERSUPPLIES; do
@@ -17,12 +16,8 @@ for POWERSUPPLY in $POWERSUPPLIES; do
             if [ -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] && [ -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then     
                 VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
                 CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
-                USINGAC=true
+                break
             fi
-            break
-        fi
-        if "$USINGAC"; then
-            break
         fi
     fi
     if [[ "$POWERSUPPLY" == BAT* ]]; then
