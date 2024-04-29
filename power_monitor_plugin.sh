@@ -12,11 +12,11 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     # Find out which powersupply to use
     if [[ "$POWERSUPPLY" == AC* ]]; then
         # Check if plugged into mains
-        for DATA in [[ $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent") ]]
+        for "$DATA" in [[ $(cat "/sys/class/power_supply/$POWERSUPPLY/uevent") ]]
         do
-            if DATA == "POWER_SUPPLY_ONLINE=1"; then
-                VOLTAGE = 10000000000000
-                CURRENT = 10000000000
+            if $DATA == "POWER_SUPPLY_ONLINE=1"; then
+                $VOLTAGE = 10000000000000
+                $CURRENT = 10000000000
                 break
             fi
         done
