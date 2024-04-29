@@ -32,6 +32,6 @@ done
 WATTAGE=$(((VOLTAGE * CURRENT) / 1000000000000))
 
 # do the genmon
-echo "<txt>$WATTAGE watts</txt><txtclick>xfce4-power-manager</txtclick>"
+echo "<txt>$WATTAGE‎W</txt><txtclick>xfce4-power-manager</txtclick>"
 
 exit 0
