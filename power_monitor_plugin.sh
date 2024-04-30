@@ -22,19 +22,10 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     fi
 
     # Read data from power supply
-    if [[ "$POWERSUPPLY" == AC* ]]; then
-        VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
-        CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
-        NODATA=false
-        break
-    fi
-
-    if [[ "$POWERSUPPLY" == BAT* ]]; then
-        VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
-        CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
-        NODATA=false
-        break
-    fi
+    VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
+    CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
+    NODATA=false
+    break
 done
 
 if [[ $NODATA == true ]]; then
