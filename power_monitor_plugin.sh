@@ -6,7 +6,7 @@ ICON=utilities-system-monitor
 POWERSUPPLIES=$(ls '/sys/class/power_supply/' | tr " " "\n")
 VOLTAGE=0
 CURRENT=0
-NODATA=false
+NODATA=true
 
 # Cycle though each powersupply to figure out which powersupply to use
 for POWERSUPPLY in $POWERSUPPLIES; do
@@ -16,10 +16,7 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     fi
 
     # Check if power supply sending voltage and current data to pc
-    if [ ! -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] || [ ! -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then
-        NODATA=true
-        break
-    fi
+    if [ ! -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] || [ ! -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then continue; fi
 
     # Read data from power supply
     VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
