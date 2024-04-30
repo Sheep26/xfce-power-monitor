@@ -2,7 +2,7 @@
 
 ICON=utilities-system-monitor
 
-# Get the target powersupply
+# Get the active powersupply
 POWERSUPPLIES=$(ls '/sys/class/power_supply/' | tr " " "\n")
 VOLTAGE=0
 CURRENT=0
