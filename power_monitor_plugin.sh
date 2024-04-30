@@ -13,11 +13,11 @@ for POWERSUPPLY in $POWERSUPPLIES; do
     if [[ "$POWERSUPPLY" == AC* ]]; then
         # Check if plugged into mains
         if [[ $(cat "/sys/class/power_supply/$POWERSUPPLY/online") == "1" ]]; then
-            if [ -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] && [ -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then     
-                VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
-                CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
-                break
-            fi
+            #if [ -f "/sys/class/power_supply/$POWERSUPPLY/voltage_now" ] && [ -f "/sys/class/power_supply/$POWERSUPPLY/current_now" ]; then     
+            VOLTAGE=$(cat "/sys/class/power_supply/$POWERSUPPLY/voltage_now")
+            CURRENT=$(cat "/sys/class/power_supply/$POWERSUPPLY/current_now")
+            break
+            #fi
         fi
     fi
     if [[ "$POWERSUPPLY" == BAT* ]]; then
